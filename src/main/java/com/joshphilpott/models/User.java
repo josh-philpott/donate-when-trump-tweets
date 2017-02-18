@@ -1,5 +1,6 @@
 package com.joshphilpott.models;
 
+import com.joshphilpott.validators.ValidPassword;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,6 @@ public class User {
     private String email;
     @NotEmpty
     private String username;
-    @NotEmpty
+    @ValidPassword
     private String password;
 }

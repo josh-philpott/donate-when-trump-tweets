@@ -1,17 +1,12 @@
 package com.joshphilpott.twitter;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.integration.annotation.Poller;
-import org.springframework.social.twitter.api.SearchParameters;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  *
@@ -28,7 +23,7 @@ public class TweetDetector {
 
     public TweetDetector(Twitter twitter){
         this.twitter = twitter;
-        getTrumpTweets();
+        //getTrumpTweets();
     }
 
 
