@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1>Sign Up</h1>
+<div th:if="${emailExists}">
+    An account registered to that email address already exists.
+</div>
+<div th:if="${usernameExists}">
+    An account registered to that username already exists
+</div>
 <form th:action="@{/signup}" th:object="${user}" method="post">
     <div>
         <label> Email <input type="text" name="email"/> </label>
