@@ -2,6 +2,7 @@ package com.joshphilpott.service;
 
 import com.google.common.collect.Lists;
 import com.joshphilpott.models.User;
+import com.joshphilpott.models.UserDTO;
 import com.joshphilpott.repository.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +23,9 @@ public class UserService implements UserDetailsService{
     @NonNull
     UserRepository userRpsy;
 
+    @NonNull
+    PasswordEncoder passwordEncoder;
+
     public boolean emailExists(String email){
         User user = userRpsy.findFirstByEmailIgnoreCase(email);
         return user!=null;
@@ -31,8 +36,16 @@ public class UserService implements UserDetailsService{
         return user!=null;
     }
 
-    public User save(User user){
-        return userRpsy.save(user);
+    /**
+     * Encodes password and saves user
+     * @param user
+     * @return
+     */
+    public User save(UserDTO user){
+        User userToSave = user.getUser();
+        userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
+        log.info("Saving user: {}", userToSave);
+        return userRpsy.save(userToSave);
     }
 
     @Override

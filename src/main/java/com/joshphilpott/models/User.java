@@ -1,6 +1,5 @@
 package com.joshphilpott.models;
 
-import com.joshphilpott.validators.ValidPassword;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,21 +7,17 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 
 /**
  * Created by pterodactyl on 2/18/17.
  */
 @NoArgsConstructor
 @ToString
-@Entity
 @Setter
 @Getter
-public class User {
+@Entity
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,6 +26,9 @@ public class User {
     private String email;
     @NotEmpty
     private String username;
-    @ValidPassword
     private String password;
+    @OneToOne
+    private CreditCard creditCard;
 }
+
+

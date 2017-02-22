@@ -1,6 +1,7 @@
 package com.joshphilpott.controllers;
 
 import com.joshphilpott.models.User;
+import com.joshphilpott.models.UserDTO;
 import com.joshphilpott.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,23 +27,25 @@ public class RegistrationController extends WebMvcConfigurerAdapter{
     UserService userService;
 
     @PostMapping
-    public String validateAndRegister(@Valid User user, Model model, BindingResult bindingResult){
+    public String validateAndRegister(@Valid UserDTO userDTO, Model model, BindingResult bindingResult){
+        model.addAttribute("userDto", userDTO);
+
         if(bindingResult.hasErrors()) {
             return "/signup";
         }
 
-        if(userService.emailExists(user.getEmail())){
+        if(userService.emailExists(userDTO.getEmail())){
             model.addAttribute("emailExists", true);
             return "/signup";
         }
 
-        if(userService.usernameExists(user.getUsername())){
+        if(userService.usernameExists(userDTO.getUsername())){
             model.addAttribute("usernameExists", true);
             return "/signup";
         }
 
-        log.info("Received valid signup request. Registering user: {}", user);
-        User registeredUser = userService.save(user);
+        log.info("Received valid signup request. Registering user: {}", userDTO);
+        User registeredUser = userService.save(userDTO);
         log.info("Successfully registered: {}", registeredUser);
 
         return "redirect:/login";
@@ -50,7 +53,8 @@ public class RegistrationController extends WebMvcConfigurerAdapter{
 
 
     @GetMapping
-    public String displaySignup(User user, Model model){
+    public String displaySignup(Model model){
+        model.addAttribute("userDto", new UserDTO());
         return "/signup";
     }
 }
