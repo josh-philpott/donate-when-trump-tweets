@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donate when Trump Tweets</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<h1 th:inline="text">Create pledge [[${#httpServletRequest.remoteUser}]]!</h1>
+
+<form th:action="@{/pledge/create}" method="post">
+    <div><label> Amount Per Tweet : <input type="number" name="amount"  min="0.01" step="0.01" max="2500"/> </label></div>
+    <div><label> Maximum Per Month : <input type="number" name="max"  min="0.01" step="0.01" max="2500"/> </label></div>
+    <div><label> EIN : <input type="text" name="charityEin"/> </label></div>
+    <div><input type="submit" value="Create Pledge"/></div>
+</form>
+
+
+</body>
+</html>

@@ -6,12 +6,21 @@
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1 th:inline="text">View pledges [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+<table>
+    <tr>
+        <td th:text="${pledge.id}"></td>
+        <td th:text="${pledge.amount}"></td>
+        <td th:text="${pledge.max}"></td>
+        <td th:text="${pledge.charityEin}"></td>
+    </tr>
+</table>
 
-<a href='/addPayment'> Add Payment </a>
+
+
 
 </body>
 </html>

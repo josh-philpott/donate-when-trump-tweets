@@ -29,6 +29,8 @@ public class User{
     private String password;
     @OneToOne
     private CreditCard creditCard;
+    @OneToOne
+    private Pledge pledge;
 }
 
 

@@ -2,3 +2,5 @@ spring:
     profiles: dev
     thymeleaf:
       cache: false
+    datasource:
+      url: jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE
